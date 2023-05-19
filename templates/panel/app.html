@@ -1,0 +1,55 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Soloaccess | Access Name</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700&display=swap">
+	<script src="https://kit.fontawesome.com/b61e574d7a.js"></script>
+	<link rel="stylesheet" href="{% static 'css/panel.css' %}">
+</head>
+<body>
+	<div class="sidebar">
+  	<span class="sidebar__logo">
+    	<i class="fas fa-network-wired"></i>
+  	</span>
+  	<hr />
+  	<a href="#" class="sidebar__link active">
+    	<i class="fas fa-cubes"></i>
+    	<span class="tooltip">All</span>
+  	</a>
+  	<a href="#" class="sidebar__link">
+    	<i class="fas fa-desktop"></i>
+    	<span class="tooltip">Web Apps</span>
+  	</a>
+  	<a href="#" class="sidebar__link">
+    	<i class="fas fa-server"></i>
+    	<span class="tooltip">Servers</span>
+  	</a>
+  	<div class="sidebar__bottom">
+    	<hr />
+    	<a href="#" class="sidebar__link">
+      	<i class="fas fa-user-circle"></i>
+      	<span class="tooltip">Profile</span>
+    	</a>
+  	</div>
+  </div>
+	<div class="server-card-container">
+		<div class="server-card">
+			<h1>Server Name 1</h1>
+			<p>User the following snippet to connect to the remote SSH server:</p>
+			<div class="code-container">
+				<span class="code-snippet">
+					ssh <span class="code-snippet__username">testuser</span>@<span class="code-snippet__domain">allsafe.local</span>
+				</span>
+				<button class="copy-clipboard-button">
+					<i class="fas fa-clipboard"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
