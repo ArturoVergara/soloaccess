@@ -3,4 +3,4 @@ from django.views.generic import TemplateView
 
 
 class TestView(TemplateView):
-    template_name = "panel/example.html"
+    template_name = "console/example.html"
