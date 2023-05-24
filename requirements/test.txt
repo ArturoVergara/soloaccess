@@ -1,0 +1,4 @@
+-r ./base.txt
+
+beautifulsoup4>=4.12.2
+pytest-django>=4.5.2
