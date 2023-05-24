@@ -29,20 +29,21 @@
           <h5 class="sidebar-title">Dashboard</h5>
           <div class="sidebar-divider"></div>
           <a href="#"
-             class="sidebar-link sidebar-link-with-icon {% if 'topic' in url_name %} active{% endif %}">
+             class="sidebar-link sidebar-link-with-icon {% if 'access' in url_name %} active{% endif %}">
             <span class="sidebar-icon">
               <i class="bx bxs-server" aria-hidden="true"></i>
             </span>
             Accesses
           </a>
           <a href="#"
-             class="sidebar-link sidebar-link-with-icon {% if 'question' in url_name %} active{% endif %}">
+             class="sidebar-link sidebar-link-with-icon {% if 'policy' in url_name %} active{% endif %}">
             <span class="sidebar-icon">
               <i class="bx bx-list-check" aria-hidden="true"></i>
             </span>
             Policies
           </a>
-          <a href="#" class="sidebar-link sidebar-link-with-icon">
+          <a href="{% url 'console:user_list' %}"
+             class="sidebar-link sidebar-link-with-icon {% if 'user' in url_name %} active{% endif %}">
             <span class="sidebar-icon">
               <i class="bx bxs-user-account" aria-hidden="true"></i>
             </span>
