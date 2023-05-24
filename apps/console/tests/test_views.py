@@ -76,6 +76,32 @@ def test_access_list_view_display_right_data(
         assert access.observation in response_content
 
 
+def test_access_delete_view_get_method_disable(client, custom_user, http_access):
+    client.force_login(custom_user)
+    response = client.get(reverse_lazy("console:access_delete", args=(http_access.id,)))
+
+    assert response.status_code == 404
+    assert response.context["exception"] == "Only POST method available"
+
+
+def test_access_delete_view_post_method(client, custom_user, http_access, ssh_access):
+    client.force_login(custom_user)
+
+    assert Access.objects.count() == 2
+
+    response = client.post(
+        reverse_lazy("console:access_delete", args=(http_access.id,)), follow=True
+    )
+
+    assert response.status_code == 200
+    assert response.redirect_chain[0][1] == 302
+    assert response.redirect_chain[0][0] == access_list_url
+
+    assert Access.objects.count() == 1
+    assert Access.objects.filter(id=http_access.id).count() == 0
+    assert Access.objects.filter(id=ssh_access.id).count() == 1
+
+
 def test_user_list_view_display_right_data(client, custom_user):
     client.force_login(custom_user)
     response = client.get(user_list_url)

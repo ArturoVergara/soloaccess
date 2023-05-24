@@ -59,7 +59,7 @@
       </div>
     </div>
   </div>
-  <div class="modal" id="delete-user-modal" tabindex="-1" role="dialog">
+  <div class="modal" id="delete-access-modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <h5 class="modal-title">Delete Access</h5>
@@ -81,8 +81,9 @@
   <script>
     function deleteAccess(accessId) {
       const deleteAccessForm = document.getElementById('delete-access-form');
+      const action = "{% url 'console:access_delete' 12345 %}";
 
-      deleteAccessForm.action = action.replace(/12345/, topicId);
+      deleteAccessForm.action = action.replace(/12345/, accessId);
       halfmoon.toggleModal('delete-access-modal');
     }
   </script>
