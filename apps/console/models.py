@@ -1,3 +1,6 @@
+# Standard Libraries
+import uuid
+
 # Django Imports
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
@@ -24,3 +27,35 @@ class AccessUser(AbstractBaseUser, PermissionsMixin):
 
     def get_absolute_url(self):
         return f"/users/{self.pk}/"
+
+
+class Access(models.Model):
+    class Types(models.IntegerChoices):
+        HTTP = 0, "HTTP"
+        SSH = 1, "SSH"
+
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    name = models.CharField(max_length=255)
+    type = models.PositiveSmallIntegerField(choices=Types.choices)
+    image = models.ImageField(blank=True, null=True)
+    observation = models.TextField(blank=True, null=True)
+    is_disable = models.BooleanField(default=False)
+
+    allowed_users = models.ManyToManyField(
+        "AccessUser",
+        blank=True,
+        related_name="allowed_accesses",
+        help_text="Select explicit allowed users for this access",
+    )
+    denied_users = models.ManyToManyField(
+        "AccessUser",
+        blank=True,
+        related_name="denied_accesses",
+        help_text="Select explicit denied users for this access",
+    )
+
+    class Meta:
+        verbose_name_plural = "Accesses"
+
+    def __str__(self):
+        return f"{self.name} ({self.pk})"
