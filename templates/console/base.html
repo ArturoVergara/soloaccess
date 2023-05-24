@@ -28,7 +28,7 @@
         {% with request.resolver_match.url_name as url_name %}
           <h5 class="sidebar-title">Dashboard</h5>
           <div class="sidebar-divider"></div>
-          <a href="#"
+          <a href="{% url 'console:access_list' %}"
              class="sidebar-link sidebar-link-with-icon {% if 'access' in url_name %} active{% endif %}">
             <span class="sidebar-icon">
               <i class="bx bxs-server" aria-hidden="true"></i>
