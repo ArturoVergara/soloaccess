@@ -1,11 +1,12 @@
 # Django Imports
-from django.views.generic import ListView, TemplateView
+from django.views.generic import ListView
 
-from .models import AccessUser
+from .models import Access, AccessUser
 
 
-class TestView(TemplateView):
-    template_name = "console/example.html"
+class AccessListView(ListView):
+    model = Access
+    context_object_name = "accesses"
 
 
 class UserListView(ListView):
