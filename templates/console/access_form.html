@@ -1,0 +1,48 @@
+{% extends "console/base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+  <div class="container-fluid">
+    <div class="row row-eq-spacing-lg">
+      <div class="col">
+        <div class="content">
+          <h1 class="content-title">Accesses</h1>
+        </div>
+        <div class="card">
+          <h2 class="card-title flex-grow-1">Access Registration</h2>
+          <form method="post">
+            <div class="form-group">
+              <label for="id_name" class="required">Name</label>
+              {% render_field form.name class+="form-control" %}
+            </div>
+            <div class="form-group">
+              <label for="id_type" class="required">Type</label>
+              {% render_field form.type class+="form-control" %}
+            </div>
+            <div class="form-group">
+              <label for="id_observation">Observation</label>
+              {% render_field form.observation rows="4" class+="form-control" %}
+            </div>
+            <div class="form-group">
+              <label for="id_image">Image</label>
+              <div class="custom-file">
+                {% render_field form.image %}
+                <label for="id_image">Choose picture</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="custom-switch">
+                {% render_field form.is_disable %}
+                <label for="id_is_disable">Is disable?</label>
+              </div>
+            </div>
+            {# Include the hidden fields in the form #}
+            {% for hidden_field in form.hidden_fields %}{{ hidden_field }}{% endfor %}
+            {% csrf_token %}
+            <input class="btn btn-primary btn-block" type="submit" value="Submit Access"/>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
