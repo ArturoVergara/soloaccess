@@ -137,6 +137,46 @@ class TestAccessDeleteView:
         assert Access.objects.filter(id=ssh_access.id).count() == 1
 
 
+class TestAccessUpdateView:
+    def test_get_method_renders_right_form(self, client, custom_user, http_access):
+        client.force_login(custom_user)
+        response = client.get(
+            reverse_lazy("console:access_update", args=(http_access.id,))
+        )
+        response_content = str(response.content)
+
+        assert response.status_code == 200
+        assert response.template_name[0] == "console/access_form.html"
+        assert 'name="name"' in response_content
+        assert 'name="type"' in response_content
+        assert 'name="observation"' in response_content
+        assert 'name="image"' in response_content
+        assert 'name="is_disable"' in response_content
+
+        assert http_access.name in response_content
+        assert http_access.get_type_display() in response_content
+        assert http_access.observation in response_content
+
+    def test_post_method_with_right_data_updates_an_access(
+        self, client, custom_user, http_access
+    ):
+        data = {
+            "name": "New Access Name",
+            "type": http_access.type,
+            "observation": http_access.observation,
+        }
+        client.force_login(custom_user)
+        response = client.post(
+            reverse_lazy("console:access_update", args=(http_access.id,)),
+            data=data,
+            follow=True,
+        )
+        updated_access = Access.objects.first()
+
+        assert response.status_code == 200
+        assert updated_access.name == "New Access Name"
+
+
 class TestUserListView:
     url = reverse_lazy("console:user_list")
 

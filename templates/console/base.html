@@ -58,6 +58,18 @@
       {% if messages %}
         {% include "partials/message_notification_toast.html" %}
       {% endif %}
+      <div class="content">
+        <nav aria-label="Breadcrumb Navigation">
+          <ul class="breadcrumb">
+
+            {% block breadcrumb %}
+              <li class="breadcrumb-item">
+                <a href="{% url 'console:home' %}"><i class="bx bxs-home-circle" aria-hidden="true"></i> Home</a>
+              </li>
+            {% endblock breadcrumb %}
+          </ul>
+        </nav>
+      </div>
 
       {% block content %}
       {% endblock content %}

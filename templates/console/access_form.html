@@ -1,13 +1,22 @@
 {% extends "console/base.html" %}
 {% load widget_tweaks %}
 
+{% block breadcrumb %}
+  <li class="breadcrumb-item">
+    <a href="{% url 'console:home' %}"><i class="bx bxs-home-circle" aria-hidden="true"></i> Home</a>
+  </li>
+  <li class="breadcrumb-item" aria-current="page">
+    <a href="{% url 'console:access_list' %}">Accesses</a>
+  </li>
+  <li class="breadcrumb-item active" aria-current="page">
+    <a href="#">Access Form</a>
+  </li>
+{% endblock breadcrumb %}
+
 {% block content %}
   <div class="container-fluid">
     <div class="row row-eq-spacing-lg">
       <div class="col">
-        <div class="content">
-          <h1 class="content-title">Accesses</h1>
-        </div>
         <div class="card">
           <h2 class="card-title flex-grow-1">Access Registration</h2>
           <form method="post">
