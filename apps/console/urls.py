@@ -7,6 +7,7 @@ from .views import (
     AccessDeleteView,
     AccessListView,
     AccessUpdateView,
+    PolicyListView,
     UserListView,
 )
 
@@ -16,6 +17,7 @@ urlpatterns = [
     path("accesses/<int:pk>/edit/", AccessUpdateView.as_view(), name="access_update"),
     path("accesses/add/", AccessCreateView.as_view(), name="access_create"),
     path("accesses/", AccessListView.as_view(), name="access_list"),
+    path("policies/", PolicyListView.as_view(), name="policy_list"),
     path("users/", UserListView.as_view(), name="user_list"),
     path(
         "",

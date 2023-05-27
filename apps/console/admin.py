@@ -1,11 +1,15 @@
 # Django Imports
 from django.contrib import admin
 
-from .models import Access, AccessUser
+from .models import Access, AccessUser, Policy
 
 
 class AccessAdmin(admin.ModelAdmin):
-    list_display = ("name", "type")
+    list_display = ("name", "type", "is_disable")
+
+
+class PolicyAdmin(admin.ModelAdmin):
+    list_display = ("name", "description", "is_disable")
 
 
 class AccessUserAdmin(admin.ModelAdmin):
@@ -13,4 +17,5 @@ class AccessUserAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Access, AccessAdmin)
+admin.site.register(Policy, PolicyAdmin)
 admin.site.register(AccessUser, AccessUserAdmin)

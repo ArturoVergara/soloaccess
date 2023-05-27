@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
 from .forms import AccessForm
-from .models import Access, AccessUser
+from .models import Access, AccessUser, Policy
 
 
 class AccessListView(ListView):
@@ -34,6 +34,11 @@ class AccessUpdateView(SuccessMessageMixin, UpdateView):
     form_class = AccessForm
     success_url = reverse_lazy("console:access_list")
     success_message = "Access was updated successfully!"
+
+
+class PolicyListView(ListView):
+    model = Policy
+    context_object_name = "policies"
 
 
 class UserListView(ListView):

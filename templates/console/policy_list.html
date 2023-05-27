@@ -1,0 +1,95 @@
+{% extends "console/base.html" %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item">
+    <a href="{% url 'console:home' %}"><i class="bx bxs-home-circle" aria-hidden="true"></i> Home</a>
+  </li>
+  <li class="breadcrumb-item active" aria-current="page">
+    <a href="{% url 'console:policy_list' %}">Policies</a>
+  </li>
+{% endblock breadcrumb %}
+
+{% block content %}
+  <div class="container-fluid">
+    <div class="row row-eq-spacing-lg">
+      <div class="col">
+        <div class="card">
+          <div class="d-flex">
+            <h2 class="card-title flex-grow-1">Policy List</h2>
+            <a href="{% url 'console:access_create' %}"
+               class="btn btn-success text-white">New Policy</a>
+          </div>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Active</th>
+                <th class="text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for policy in policies %}
+                <tr>
+                  <th>{{ forloop.counter }}</th>
+                  <td>{{ policy.name }}</td>
+                  <td>{{ policy.description }}</td>
+                  <td>
+                    {% if not policy.is_disable %}
+                      <span class="text-success">
+                        <i class="bx bxs-check-circle" aria-hidden="true"></i>
+                      </span>
+                    {% else %}
+                      <span class="text-danger">
+                        <i class="bx bxs-x-circle" aria-hidden="true"></i>
+                      </span>
+                    {% endif %}
+                  </td>
+                  <td class="text-right">
+                    <a href="#" class="btn btn-secondary">
+                      <i class="bx bxs-edit-alt"></i>
+                    </a>
+                    <button class="btn btn-danger"
+                            type="button"
+                            onclick="deletePolicy({{ policy.id }})">
+                      <i class="bx bxs-trash-alt"></i>
+                    </button>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="delete-policy-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <h5 class="modal-title">Delete Policy</h5>
+        <p>Are you sure you want to delete this policy?</p>
+        <div class="d-flex justify-content-end mt-20">
+          <button class="btn mr-10"
+                  onclick="halfmoon.toggleModal('delete-policy-modal')">Cancel</button>
+          <form id="delete-policy-form" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+
+{% block morescripts %}
+  <script>
+    function deletePolicy(policyId) {
+      const deletePolicyForm = document.getElementById('delete-policy-form');
+      const action = "#";
+
+      deletePolicyForm.action = action.replace(/12345/, policyId);
+      halfmoon.toggleModal('delete-policy-modal');
+    }
+  </script>
+{% endblock morescripts %}

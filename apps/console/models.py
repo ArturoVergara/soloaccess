@@ -78,3 +78,6 @@ class Policy(models.Model):
         related_name="policies_user",
         help_text="Select users for this policy",
     )
+
+    class Meta:
+        verbose_name_plural = "policies"
