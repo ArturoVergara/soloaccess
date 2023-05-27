@@ -44,13 +44,13 @@ class Access(models.Model):
     allowed_users = models.ManyToManyField(
         "AccessUser",
         blank=True,
-        related_name="allowed_accesses",
+        related_name="accesses_allowed_user",
         help_text="Select explicit allowed users for this access",
     )
     denied_users = models.ManyToManyField(
         "AccessUser",
         blank=True,
-        related_name="denied_accesses",
+        related_name="accesses_denied_user",
         help_text="Select explicit denied users for this access",
     )
 
@@ -59,3 +59,22 @@ class Access(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.pk})"
+
+
+class Policy(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+    is_disable = models.BooleanField(default=False)
+
+    accesses = models.ManyToManyField(
+        "Access",
+        blank=True,
+        related_name="policies_access",
+        help_text="Select accesses for this policy",
+    )
+    users = models.ManyToManyField(
+        "AccessUser",
+        blank=True,
+        related_name="policies_user",
+        help_text="Select users for this policy",
+    )
