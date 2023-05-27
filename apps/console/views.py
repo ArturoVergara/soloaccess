@@ -4,7 +4,7 @@ from django.http.response import Http404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
-from .forms import AccessForm
+from .forms import AccessForm, PolicyForm
 from .models import Access, AccessUser, Policy
 
 
@@ -39,6 +39,13 @@ class AccessUpdateView(SuccessMessageMixin, UpdateView):
 class PolicyListView(ListView):
     model = Policy
     context_object_name = "policies"
+
+
+class PolicyCreateView(SuccessMessageMixin, CreateView):
+    model = Policy
+    form_class = PolicyForm
+    success_url = reverse_lazy("console:policy_list")
+    success_message = "Policy was created successfully!"
 
 
 class UserListView(ListView):
